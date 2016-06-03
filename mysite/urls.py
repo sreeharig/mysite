@@ -18,10 +18,16 @@ from django.contrib import admin
 from registration.views import Home
 from registration import urls as reg_url
 from django.conf.urls import include, url
-urlpatterns = [
-        url(r'^$', Home.as_view(), name='home'),
-        url(r'^admin/', include(admin.site.urls)),
-        url(r'^registration/', include(reg_url)),
+from registration import urls as reg_urls
+from mysite.views import *
+from django.contrib.auth import views as auth_views
 
-]
+urlpatterns = [
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^registration/', include(reg_urls)),
+    url(r'^$', Home.as_view(), name='home'),
+    url(r'^user/login/$',
+        anonymous_required(auth_views.login),
+        {'template_name': 'login.html'},
+        name='login')]
 

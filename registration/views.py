@@ -12,7 +12,19 @@ class UserRegistrationView(AnonymousRequiredMixin, FormView):
     template_name = "register_user.html"
     authenticated_redirect_url = reverse_lazy(u"home")
     form_class = UserRegistrationForm
-    success_url = '/register/user/success/'
+    success_url = '/registration/user/success/'
     def form_valid(self, form):
         form.save()
         return FormView.form_valid(self, form)
+
+
+def anonymous_required(func):
+    def as_view(request, *args, **kwargs):
+        redirect_to = kwargs.get('next', settings.LOGIN_REDIRECT_URL)
+        if request.user.is_authenticated():
+            return redirect(redirect_to)
+        response = func(request, *args, **kwargs)
+        return response
+
+    return as_view
+

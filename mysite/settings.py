@@ -126,4 +126,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (MEDIA_ROOT,)
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-LOGIN_REDIRECT_URL='home'
+LOGIN_REDIRECT_URL = 'home'
+AUTH_USER_MODEL = "registration.User"

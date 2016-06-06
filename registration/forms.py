@@ -73,3 +73,23 @@ class UserRegistrationForm(ModelForm):
         user.set_password(self.cleaned_data["password"])
         if commit: user.save()
         return user
+
+
+Chocolate_fields = ['name', 'description','manufacturer','price' ]
+Chocolate_widgets = {
+    'name': forms.TextInput(attrs={'placeholder':_('Chocolate Name'), 'required': True}),
+
+
+    'description': forms.TextInput(attrs={'placeholder':_('Description'),
+                                             'required': True}),
+    'manufacturer': forms.TextInput(attrs={'placeholder':_('Manufacturer'),
+                                             'required': True}),
+    'price': forms.TextInput(attrs={'placeholder':_('Price'),
+                                             'required': True}),
+}
+
+class ChocolateAddForm(ModelForm):
+   class Meta:
+       model = Chocolate
+       fields = Chocolate_fields
+       widgets = Chocolate_widgets
